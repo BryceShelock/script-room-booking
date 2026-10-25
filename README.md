@@ -1,76 +1,36 @@
-# Script Murder Mystery Room Booking and Recommendation System
+# Script Room Booking
 
-一个基于 Django 的剧本杀房间预订和智能推荐系统，提供房间预订、用户评价和个性化推荐功能。
+剧本杀房间的预订、评价和推荐系统。后端是 Django REST API，另有一个桌面客户端。
 
-## 主要功能
+## 能力
 
-- 房间预订管理
-- 智能推荐系统（基于内容和协同过滤）
-- 用户评价和情感分析
-- 用户成就和积分系统
-- 商家管理后台
+- **预订**：剧本房间和预约（`booking/`）
+- **评价**：用户评价，并用 TextBlob 做情感分析（`reviews/`）
+- **推荐**：内容匹配、SVD 协同过滤和热度按 0.4 / 0.4 / 0.2 加权（`recommendation/services.py`，scikit-surprise）
+- **用户**：账号、偏好和积分相关数据（`users/`）
+- **桌面端**：`desktop_app/`
 
-## 技术栈
+## 运行
 
-- Django 5.2
-- Django REST Framework
-- SQLite (开发) / PostgreSQL (生产)
-- TextBlob (情感分析)
-- Surprise (协同过滤)
-- Pandas (数据处理)
-
-## 快速开始
-
-1. 克隆项目
-```bash
-git clone [项目地址]
-cd SmErRecommendation
-```
-
-2. 创建并激活虚拟环境
 ```bash
 python -m venv venv
-# Windows
-.\venv\Scripts\activate
-# Linux/Mac
-source venv/bin/activate
-```
-
-3. 安装依赖
-```bash
+venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-4. 初始化数据库
-```bash
-python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
-```
-
-5. 运行开发服务器
-```bash
 python manage.py runserver
 ```
 
-## API 文档
+接口前缀：
 
-详细的 API 文档请参考 [API.md](API.md)
+| 前缀 | 模块 |
+| --- | --- |
+| `/api/users/` | 用户 |
+| `/api/booking/` | 房间与预订 |
+| `/api/reviews/` | 评价 |
+| `/api/recommendation/` | 推荐 |
+| `/admin/` | Django 后台 |
 
-## 开发指南
+开发库是 SQLite。推荐在有评分数据后才会给出协同过滤结果；数据少时主要靠内容和热度。
 
-- 代码风格遵循 PEP 8
-- 使用 black 进行代码格式化
-- 提交前请运行测试：`python manage.py test`
-
-## 贡献指南
-
-1. Fork 本仓库
-2. 创建特性分支
-3. 提交更改
-4. 推送到分支
-5. 创建 Pull Request
-
-## 许可证
-
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件 
+课程项目里完成的可本地运行原型。MIT License。
